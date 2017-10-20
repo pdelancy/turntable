@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Login from './frontend/components/Login';
 import Register from './frontend/components/Register';
+import UserHome from './frontend/components/Home';
+
 import { Entypo } from '@expo/vector-icons';
 export class App extends React.Component {
   constructor(){
@@ -56,6 +58,9 @@ export class App extends React.Component {
 export default StackNavigator({
   Home: {
     screen: App,
+  },
+  UserHome: {
+      screen: UserHome,
   },
   Login: {
     screen: Login,

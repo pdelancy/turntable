@@ -24,7 +24,7 @@ import { StackNavigator } from 'react-navigation';
 
 const url = process.env.BACKEND_URI; // Backend link
 
-class RegisterScreen extends React.Component {
+export default class RegisterScreen extends React.Component {
     static navigationOptions = {
         title: 'Register'
     };
@@ -36,5 +36,3 @@ class RegisterScreen extends React.Component {
         );
     }
 }
-
-export default RegisterScreen;
