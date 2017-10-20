@@ -1,13 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Home from './components/Home';
 export default class App extends React.Component {
     render() {
         return (
-            <MuiThemeProvider>
-                <Home />
-            </MuiThemeProvider>
+          <View style={styles.container}>
+            <Text>Hello from the inside</Text>
+          </View>
         );
     }
 }
