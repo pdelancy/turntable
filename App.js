@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Login from './frontend/components/Login';
 import Register from './frontend/components/Register';
+import { Entypo } from '@expo/vector-icons';
 export class App extends React.Component {
   constructor(){
     super()
@@ -45,7 +46,7 @@ export class App extends React.Component {
               <Text style={styles.btnText}>Register</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={ () => {this.toRegister()} } style={styles.button}>
-              <Text style={styles.btnText}>Login with Spotify</Text>
+              <Text style={styles.btnText}><Entypo name="spotify" size={45} style={{margin: 10}}/> Login with Spotify</Text>
             </TouchableOpacity>
           </View>
         </View> ) : null
@@ -101,5 +102,4 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 30
     },
-
 });
