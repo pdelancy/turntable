@@ -3,10 +3,6 @@ import React from 'react';
 // Importing other screens
 import Register from './Register';
 import Login from './Login';
-import Home from './Home';
-
-// Importing Material UI
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import {
     StyleSheet,

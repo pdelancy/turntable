@@ -1,12 +1,9 @@
 import React from 'react';
 
 // Importing other screens
-import Home from './Home';
 import Login from './Login';
 import Room from './Room';
 
-// Importing Material UI
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import {
     StyleSheet,
