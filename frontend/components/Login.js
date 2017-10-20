@@ -24,7 +24,7 @@ import { StackNavigator } from 'react-navigation';
 const url = process.env.BACKEND_URI; // Backend link
 
 
-export class Login extends React.Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {username: '', password: ''};

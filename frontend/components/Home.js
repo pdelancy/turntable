@@ -23,10 +23,10 @@ import { StackNavigator } from 'react-navigation';
 
 const url = process.env.BACKEND_URI; // Backend link
 
-export class userHome extends React.Component {
+export default class UserHome extends React.Component {
 
     static navigationOptions = {
-        title: 'userHome'
+        title: 'UserHome'
     };
     render(){
         return (
