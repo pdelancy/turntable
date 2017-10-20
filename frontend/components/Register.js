@@ -26,7 +26,7 @@ const url = process.env.BACKEND_URI; // Backend link
 
 class RegisterScreen extends React.Component {
     static navigationOptions = {
-        title: 'Regiester'
+        title: 'Register'
     };
     render() {
         return (
