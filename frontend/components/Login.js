@@ -32,7 +32,7 @@ class LoginScreen extends React.Component {
         console.log('handling login..');
     }
 
-    render{
+    render(){
         return(
             <Text> LOGIN </Text>
         );
@@ -56,7 +56,8 @@ class LoginScreen extends React.Component {
     //         <Text style={styles.buttonLabel}> Login </Text>
     //     </TouchableOpacity>
     // </View>);
-}
+  }
+};
 
 const styles = StyleSheet.create({
     button: {
