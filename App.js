@@ -37,7 +37,7 @@ export class App extends React.Component {
     console.log(this.state);
       return (
       this.state.fontLoaded ?  (<View style={styles.container}>
-          <Text style={styles.title}>TURNT!</Text>
+          <Text style={styles.title}>TURNT</Text>
           <View>
             <TouchableOpacity onPress={ () => {this.toLogin()}} style={styles.button}>
               <Text style={styles.btnText}>Login</Text>
