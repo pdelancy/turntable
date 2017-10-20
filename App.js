@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { Login } from './frontend/components/Login'
+import {Login} from './frontend/components/Login'
+import {userHome} from './frontend/components/Home'
+
 export class App extends React.Component {
 
   static navigationOptions = {
@@ -29,6 +31,9 @@ export class App extends React.Component {
 export default StackNavigator({
   Home: {
     screen: App,
+  },
+  userHome: {
+      screen: userHome
   },
   Login: {
     screen: Login
