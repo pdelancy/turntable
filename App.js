@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Login } from './frontend/components/Login'
-export default class App extends React.Component {
+class App extends React.Component {
 
   static navigationOptions = {
     title: 'Home'
@@ -26,8 +26,7 @@ export default class App extends React.Component {
         )
     }
 }
-
-export default StackNavigator({
+StackNavigator({
   Home: {
     screen: App,
   },
@@ -72,3 +71,8 @@ const styles = StyleSheet.create({
     },
 
 });
+
+export default {
+  App,
+  StackNavigator,
+};
