@@ -1,5 +1,5 @@
 import React from 'react';
-import { Font } from 'expo';
+import { Font, Location, Permissions, MapView } from 'expo';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Login from './frontend/components/Login';
@@ -28,7 +28,7 @@ export class App extends React.Component {
   }
 
   toLogin = () => {
-    this.props.navigation.navigate('Login');
+    this.props.navigation.navigate('UserHome');
   }
 
   toRegister = () => {
