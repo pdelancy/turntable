@@ -4,6 +4,7 @@ import React from 'react';
 import Register from './Register';
 import Room from './Room';
 import UserHome from './Home';
+import ViewRoom from './ViewRoom';
 
 import {
     StyleSheet,
@@ -37,7 +38,7 @@ export default class Login extends React.Component {
 
     login = () => {
         //if(this.state.username && this.state.password){
-            this.props.navigation.navigate('Room');
+            this.props.navigation.navigate('ViewRoom');
             //this.props.navigation.navigate('UserHome');
 
         //}

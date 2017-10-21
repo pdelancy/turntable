@@ -6,7 +6,7 @@ import Login from './frontend/components/Login';
 import Register from './frontend/components/Register';
 import UserHome from './frontend/components/Home';
 import Room from './frontend/components/Room';
-
+import ViewRoom from './frontend/components/ViewRoom';
 import { Entypo } from '@expo/vector-icons';
 export class App extends React.Component {
   constructor(){
@@ -71,6 +71,9 @@ export default StackNavigator({
 },
 Room: {
     screen: Room
+},
+ViewRoom: {
+    screen: ViewRoom
 }
 }, {initialRouteName: 'Home'});
 
