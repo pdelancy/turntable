@@ -39,6 +39,31 @@ export class App extends React.Component {
     this.props.navigation.navigate('Register')
   }
 
+  toRegisterSpotify = () => {
+          fetch('https://turntableapp.herokuapp.com/auth/spotify', {
+              method: 'GET',
+              headers: {
+                  "Content-Type": "application/json"
+              }
+          })
+          .then((response) => {
+              console.log('response: ', response);
+              return response.url;
+          })
+          .then((url) => {
+              console.log('url: ', url);
+              /* do something with responseJson and go back to the Login view but
+              * make sure to check for responseJson.success! */
+              
+
+          }).then(() => this.props.navigation.navigate('Home'))
+          .catch((err) => {
+              /* do something if there was an error with fetching */
+              console.log('ERR, ', err);
+              alert('error', err);
+          });
+      fetch('');
+  }
   render() {
     console.log(Dimensions.get('window').width);
       return (
@@ -54,7 +79,7 @@ export class App extends React.Component {
               <TouchableOpacity onPress={ () => {this.toRegister()} } style={styles.button}>
                 <Text style={styles.btnText}>Register</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={ () => {this.toRegister()} } style={styles.button}>
+              <TouchableOpacity onPress={ () => {this.toRegisterSpotify()} } style={styles.button}>
                 <Text style={styles.btnText}><Entypo name="spotify" size={45} style={{margin: 10}}/> Login with Spotify</Text>
               </TouchableOpacity>
             </View>
