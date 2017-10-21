@@ -34,39 +34,35 @@ export default class Register extends React.Component {
     };
 
     register = () => {
-        //if(this.state.username && (this.state.password === this.state.rpassword)){
-            this.props.navigation.navigate('UserHome');
-        //}
-        // if(this.state.usernameText && this.state.passwordText){
-        //     fetch('https://hohoho-backend.herokuapp.com/login', {
-        //         method: 'POST',
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify({
-        //             username: this.state.usernameText,
-        //             password: this.state.passwordText,
-        //         })
-        //     })
-        //     .then((response) => response.json())
-        //     .then((responseJson) => {
-        //         /* do something with responseJson and go back to the Login view but
-        //         * make sure to check for responseJson.success! */
-        //         if(responseJson.success){
-        //             console.log('response: ', responseJson.user.username);
-        //             return AsyncStorage.setItem('user', JSON.stringify({
-        //                 username: this.state.usernameText,
-        //                 password: this.state.passwordText
-        //             }));
-        //         }
-        //
-        //     }).then(() => this.props.navigation.navigate('Users'))
-        //     .catch((err) => {
-        //         /* do something if there was an error with fetching */
-        //         console.log('ERR, ', err);
-        //         alert('error', err);
-        //     });
-        // }
+        if(this.state.username && (this.state.password === this.state.rpassword)){
+            fetch('https://turntableapp.herokuapp.com/register', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: this.state.username,
+                    password: this.state.password,
+                })
+            })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                /* do something with responseJson and go back to the Login view but
+                * make sure to check for responseJson.success! */
+                if(responseJson.success){
+                    return AsyncStorage.setItem('user', JSON.stringify({
+                        username: this.state.username,
+                        password: this.state.password
+                    }));
+                }
+
+            }).then(() => this.props.navigation.navigate('Home'))
+            .catch((err) => {
+                /* do something if there was an error with fetching */
+                console.log('ERR, ', err);
+                alert('error', err);
+            });
+        }
     }
 
     render(){
