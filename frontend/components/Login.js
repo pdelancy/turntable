@@ -4,6 +4,7 @@ import React from 'react';
 import Register from './Register';
 import Room from './Room';
 import UserHome from './Home';
+import ViewRoom from './ViewRoom';
 
 import {
     StyleSheet,

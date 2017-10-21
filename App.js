@@ -8,7 +8,8 @@ import UserHome from './frontend/components/Home';
 import NewEvent from './frontend/components/NewEvent';
 import SelectPlaylist from './frontend/components/SelectPlaylist';
 import Locate from './frontend/components/Locate';
-
+import Room from './frontend/components/Room';
+import ViewRoom from './frontend/components/ViewRoom';
 import { Entypo } from '@expo/vector-icons';
 export class App extends React.Component {
   constructor(){
@@ -87,6 +88,12 @@ export default StackNavigator({
   },
   Locate: {
     screen: Locate,
+  },
+    Room: {
+    screen: Room
+  },
+    ViewRoom: {
+    screen: ViewRoom
   }
 }, {initialRouteName: 'Home'});
 
