@@ -38,7 +38,7 @@ export default class Login extends React.Component {
 
     login = () => {
         if(this.state.username && this.state.password){
-            this.props.navigation.navigate('Room');
+            this.props.navigation.navigate('UserHome');
         }
         // if(this.state.usernameText && this.state.passwordText){
         //     fetch('https://hohoho-backend.herokuapp.com/login', {

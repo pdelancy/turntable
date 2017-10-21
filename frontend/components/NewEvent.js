@@ -35,9 +35,13 @@ export default class NewEvent extends React.Component {
         title: 'New Event'
     };
 
-    selectPlaylist = () => {
+    SelectPlaylist = () => {
       'In select playlist'
-      this.props.navigation.navigate('SelectPlaylist')
+      AsyncStorage.setItem("room", JSON.stringify({'name': this.state.eventName, 'description': this.state.description}))
+      .then(()=>{
+        console.log('Successfully stored room at ', 42);
+        this.props.navigation.navigate('SelectPlaylist');
+      })
     }
 
     render(){
@@ -62,8 +66,8 @@ export default class NewEvent extends React.Component {
             />
 
 
-            <TouchableOpacity onPress={ () => {this.selectPlaylist()}} style={[style.button, {backgroundColor: 'red'}]}>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>Select A Playlist</Text>
+            <TouchableOpacity onPress={ () => {this.SelectPlaylist()}} style={[style.button, {backgroundColor: 'red'}]}>
+              <Text style={{color: 'white', fontWeight: 'bold'}}>Enter your Spotify Premium ID</Text>
             </TouchableOpacity>
           </View>
         </Image>

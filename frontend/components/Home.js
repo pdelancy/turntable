@@ -38,8 +38,10 @@ export default class UserHome extends React.Component {
           longitude: -122.409327,
           latitudeDelta: .03125,
           longitudeDelta: .03125
-        }
-      }
+        },
+        rooms: []
+      };
+
     }
 
     componentDidMount = async () => {
@@ -54,13 +56,44 @@ export default class UserHome extends React.Component {
       })
     }
 
+    componentWillMount() {
+      fetch('https://turntableapp.herokuapp.com/allrooms', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then((response) => (response.json()))
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          rooms: res
+        })
+      })
+    }
+
     newEvent = () => {
-      console.log("In new event");
       this.props.navigation.navigate('NewEvent')
     }
 
     render(){
-      console.log(this.state);
+      console.log(this.state.rooms);
+      let roomPins = this.state.rooms.slice();
+      console.log(roomPins);
+      roomPins = this.state.rooms.map((room) => (
+        <MapView.Marker
+          coordinate={{
+          latitude: room.latitude,
+          longitude: room.longitude
+        }}
+          title={room.roomName + "'s location"}
+          onPress={()=>{
+            AsyncStorage.setItem('roomInfo', JSON.stringify({'host': room.attendees[0].spotifyId, 'description': room.description, 'name': room.roomName}))
+            .then(()=>this.props.navigation.navigate('ViewRoom'))
+          }}>
+
+        </MapView.Marker>
+      ))
         return (
           <MapView
             region={{
@@ -79,10 +112,10 @@ export default class UserHome extends React.Component {
             scrollEnabled={true}
             zoomEnabled={true}
             onRegionChangeComplete={(region)=>{
-              console.log(region, 73);
               this.setState({region: region})
               }}
             >
+              {roomPins}
               <TouchableOpacity style={style.newEvent} onPress={()=>this.newEvent()}>
                 <Text style={style.mapButton}>Create an Event</Text>
               </TouchableOpacity>

@@ -54,13 +54,42 @@ export default class Locate extends React.Component {
       })
     }
 
-    // newEvent = () => {
-    //   console.log("In new event");
-    //   this.props.navigation.navigate('NewEvent')
-    // }
+    createRoom = () => {
+      console.log("AT 58!");
+      AsyncStorage.getItem('room')
+      .then(result => {
+        var parsedResult = JSON.parse(result);
+        console.log(this.state.latitude, this.state.longitude);
+        var name = parsedResult.name;
+        var desc = parsedResult.description;
+        var playlist = parsedResult.playlist;
+        var spotifyID = parsedResult.spotifyID;
+
+        fetch('https://turntableapp.herokuapp.com/createroom', {
+          method: 'POST',
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            roomName: name,
+            description: desc,
+            playlistId: playlist,
+            latitude: this.state.region.latitude,
+            longitude: this.state.region.longitude,
+            spotifyId: spotifyID
+          })
+        })
+        .then((resp) => {
+          console.log(resp);
+          console.log("successful post");
+          this.props.navigation.navigate('UserHome')
+        })
+      })
+
+    }
+
 
     render(){
-      console.log(this.state);
         return (
           <MapView
             region={{
@@ -87,9 +116,8 @@ export default class Locate extends React.Component {
                   latitude: this.state.region.latitude,
                   longitude: this.state.region.longitude
                 }}
-                onDragEnd={(e)=>console.log(e.nativeEvent)}
                 />
-              <TouchableOpacity style={style.finalize} onPress={()=>this.newEvent()}>
+              <TouchableOpacity style={style.finalize} onPress={()=>this.createRoom()}>
                 <Text style={{fontSize: 30, color: 'white'}}>Finalize</Text>
               </TouchableOpacity>
           </MapView>

@@ -27,14 +27,36 @@ const url = process.env.BACKEND_URI; // Backend link
 
 export default class ViewRoom extends React.Component {
 
+    constructor(props){
+      super(props);
+      this.state = {
+        host: '',
+        description: '',
+        name: ''
+      }
+      AsyncStorage.getItem('roomInfo')
+      .then((response)=>{
+        var parsedResult = JSON.parse(response)
+        console.log(parsedResult);
+        this.setState({
+          host: parsedResult.host,
+          description: parsedResult.description,
+          name: parsedResult.name
+        })
+      })
+
+    }
     join(){
         console.log('joined room');
+        this.props.navigation.navigate('Room')
     }
+
 
     static navigationOptions = {
         title: 'ViewRoom'
     };
     render(){
+      console.log(this.state.host);
         return (
             <View style={{flex: 1}}>
                 <Image source={require('../images/maxresdefault.jpg')}>
@@ -45,15 +67,27 @@ export default class ViewRoom extends React.Component {
                             <View style={style.descriptionBox}>
                                 <ScrollView>
                                     <Text style={[style.descriptionColor, style.host]}>
-                                        Hello, my name is Samuel. Today I will be hosting a party at 1818 Floral St.  If you are down to get turnt, feel free to come!
-                                        P.S. someone should bring some popcorn, we are planning on watching movies later.
+                                        {this.state.name}
                                     </Text>
+                                    <Text style={[style.descriptionColor, style.host]}>
+                                        Hosted by: {this.state.host}
+                                    </Text>
+                                    <Text style={[style.descriptionColor, style.host]}>
+                                        {'\n'}{this.state.description}
+                                    </Text>
+
                                 </ScrollView>
                             </View>
 
-                            <View style={{paddingTop: 20, paddingBottom: 20}}>
+                            {/* <View style={{paddingTop: 20, paddingBottom: 20}}>
                                 <Text style={[style.descriptionColor, style.host, style.song1Box]}>
-                                    You should be able to see all this.
+
+                                </Text>
+                            </View>
+
+                            <View style={{paddingTop: 20}}>
+                                <Text style={[style.descriptionColor, style.host, style.song1Box]}>
+
                                 </Text>
                             </View>
 
@@ -61,13 +95,7 @@ export default class ViewRoom extends React.Component {
                                 <Text style={[style.descriptionColor, style.host, style.song1Box]}>
                                     You should be able to see all this.
                                 </Text>
-                            </View>
-
-                            <View style={{paddingTop: 20}}>
-                                <Text style={[style.descriptionColor, style.host, style.song1Box]}>
-                                    You should be able to see all this.
-                                </Text>
-                            </View>
+                            </View> */}
                         </View>
                     </View>
                     <TouchableOpacity onPress={ () => {this.join()}} style={style.button}>
@@ -112,7 +140,7 @@ const style = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: 'green',
         width: 200,
-        height: 170,
+        height: 270,
         padding: 20,
         overflow: 'scroll',
         backgroundColor: 'rgba(52, 52, 52, .5)',

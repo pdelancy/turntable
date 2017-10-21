@@ -10,6 +10,7 @@ import SelectPlaylist from './frontend/components/SelectPlaylist';
 import Locate from './frontend/components/Locate';
 import Room from './frontend/components/Room';
 import ViewRoom from './frontend/components/ViewRoom';
+import SpotifyID from './frontend/components/SpotifyID';
 import { Entypo } from '@expo/vector-icons';
 export class App extends React.Component {
   constructor(){
@@ -32,7 +33,7 @@ export class App extends React.Component {
   }
 
   toLogin = () => {
-    this.props.navigation.navigate('UserHome');
+    this.props.navigation.navigate('SelectPlaylist');
   }
 
   toRegister = () => {
@@ -52,9 +53,16 @@ export class App extends React.Component {
           })
           .then((url) => {
               console.log('url: ', url);
+              fetch(url, {
+                method: 'GET',
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              })
+              .then((response)=>(console.log(response)))
               /* do something with responseJson and go back to the Login view but
               * make sure to check for responseJson.success! */
-              
+
 
           }).then(() => this.props.navigation.navigate('Home'))
           .catch((err) => {
@@ -62,7 +70,6 @@ export class App extends React.Component {
               console.log('ERR, ', err);
               alert('error', err);
           });
-      fetch('');
   }
   render() {
     console.log(Dimensions.get('window').width);
@@ -119,6 +126,9 @@ export default StackNavigator({
   },
     ViewRoom: {
     screen: ViewRoom
+  },
+  SpotifyID: {
+    screen: SpotifyID
   }
 }, {initialRouteName: 'Home'});
 
