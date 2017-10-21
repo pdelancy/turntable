@@ -29,7 +29,7 @@ const url = process.env.BACKEND_URI; // Backend link
 export default class Login extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {username: '', password: ''};
+        this.state = {username: '', password: '', spotifyId: false};
     }
 
     static navigationOptions = {
@@ -37,18 +37,17 @@ export default class Login extends React.Component {
     };
 
     login = () => {
-        if(this.state.username && this.state.password){
-            this.props.navigation.navigate('Room');
-        }
-        // if(this.state.usernameText && this.state.passwordText){
+        this.props.navigation.navigate('Room');
+        // if(this.state.username && this.state.password){
         //     fetch('https://hohoho-backend.herokuapp.com/login', {
         //         method: 'POST',
         //         headers: {
         //             "Content-Type": "application/json"
         //         },
         //         body: JSON.stringify({
-        //             username: this.state.usernameText,
-        //             password: this.state.passwordText,
+        //             username: this.state.username,
+        //             password: this.state.password,
+        //             spotifyId: this.state.spotifyId ? this.state.spotifyId : false
         //         })
         //     })
         //     .then((response) => response.json())
@@ -58,12 +57,13 @@ export default class Login extends React.Component {
         //         if(responseJson.success){
         //             console.log('response: ', responseJson.user.username);
         //             return AsyncStorage.setItem('user', JSON.stringify({
-        //                 username: this.state.usernameText,
-        //                 password: this.state.passwordText
+        //                 username: this.state.username,
+        //                 password: this.state.password,
+        //                 spotifyId: this.state.spotifyId
         //             }));
         //         }
         //
-        //     }).then(() => this.props.navigation.navigate('Users'))
+        //     }).then(() => this.props.navigation.navigate('Room'))
         //     .catch((err) => {
         //         /* do something if there was an error with fetching */
         //         console.log('ERR, ', err);

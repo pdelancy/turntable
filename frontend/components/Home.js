@@ -79,7 +79,7 @@ export default class UserHome extends React.Component {
             scrollEnabled={true}
             zoomEnabled={true}
             onRegionChangeComplete={(region)=>{
-              console.log(region, 73);
+              //console.log(region, 73);
               this.setState({region: region})
               }}
             >

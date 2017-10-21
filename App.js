@@ -32,7 +32,7 @@ export class App extends React.Component {
   }
 
   toLogin = () => {
-    this.props.navigation.navigate('UserHome');
+    this.props.navigation.navigate('Login'); // change back to UserHome
   }
 
   toRegister = () => {
@@ -54,15 +54,21 @@ export class App extends React.Component {
               console.log('url: ', url);
               /* do something with responseJson and go back to the Login view but
               * make sure to check for responseJson.success! */
-              
-
+              fetch(url, {
+                  method: 'GET',
+                  headers: {
+                      "Content-Type": "application/json"
+                  }
+              })
+              .then((response) => {
+                  console.log('spotify response: ', response);
+              })
           }).then(() => this.props.navigation.navigate('Home'))
           .catch((err) => {
               /* do something if there was an error with fetching */
               console.log('ERR, ', err);
               alert('error', err);
           });
-      fetch('');
   }
   render() {
     console.log(Dimensions.get('window').width);
