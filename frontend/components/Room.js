@@ -22,6 +22,8 @@ import React from 'react';
 // Importing other screens
 import Register from './Register';
 import Login from './Login';
+import createReactClass from 'create-react-class';
+
 
 import {
     StyleSheet,
@@ -41,6 +43,8 @@ import { Location, Permissions, MapView } from 'expo';
 import { StackNavigator } from 'react-navigation';
 
 const url = process.env.BACKEND_URI; // Backend link
+const user = AsyncStorage.getItem('user');
+
 
 class RoomScreen extends React.Component {
     static navigationOptions = {
@@ -48,26 +52,93 @@ class RoomScreen extends React.Component {
     };
 
     like(i){
-        console.log('liked.');
+        console.log('liked.', this.state.dataSource[i]);
 
-        // {name: 'Bring me to life', likes: 0, likedUsers:[]}
-
-        //if(user.song !== this.state.dataSource[i].name){
-            //fetch('') // like request
-        //}
+        if(this.state.dataSource[i].songName !== this.state.song){
+            fetch('https://turntableapp.herokuapp.com/like', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: user.username,
+                    song: this.state.dataSource[i]
+                })
+            })
+            .then(() => {
+                this.setState({
+                    song: userObj.song
+                })
+            })
+            .catch((err) => {
+                /* do something if there was an error with fetching */
+                console.log('ERR, ', err);
+                alert('error', err);
+            });
+            this.sort();
+        }
     }
 
     constructor() {
         super();
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {
-            dataSource: ds.cloneWithRows(['Bring me to life', 'Bring me to life ee ee ee ee ee ee eee eee eee ee', 'Bring me to life', 'Bring me to life', 'Bring me to life', 'Bring me to life', 'Bring me to life' , 'Bring me to life' , 'Bring me to life',  'Bring me to life' ,
-                                            'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life'
-                                            , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life' , 'Bring me to life']),
+            like: false,
+            dataSource: ds.cloneWithRows([]),
         };
+
+        fetch('https://turntableapp.herokuapp.com/getUser', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: user.username,
+                password: user.password,
+            })
+        })
+        .then((response) => response.json())
+        .then((userObj) => {
+            /* do something with responseJson and go back to the Login view but
+            * make sure to check for responseJson.success! */
+            this.setState({
+                like: userObj.song
+            })
+        })
+        .catch((err) => {
+            /* do something if there was an error with fetching */
+            console.log('ERR, ', err);
+            alert('error', err);
+        });
+
+        const fetchData = () => {
+            fetch('https://turntableapp.herokuapp.com/songs', {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then((songs) => {
+                console.log(songs);
+                return songs.json()
+            })
+            .then((jsonSong) => {
+                console.log(jsonSong);
+                this.setState({
+                    dataSource: ds.cloneWithRows(jsonSong)
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+                alert(err);
+            })
+        }
+
+        setInterval(fetchData, parseInt(10000));
     }
 
     render() {
+        console.log(this.state.dataSource);
         return (
             <View style={style.container}>
                 <Text style={{color: 'green', fontSize: 30, fontWeight: 'bold'}}> Up next</Text>
@@ -78,14 +149,13 @@ class RoomScreen extends React.Component {
                             return (<View>
                                 <View style={style.songBorder}>
                                     <TouchableOpacity onPress={() => {this.like(i)}}>
-                                        <Text style={[style.songPanel, style.songName]}> {songName} </Text>
+                                        <Text style={[style.songPanel, style.songName]}> {songName.songName} </Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>);
                         }}
                     />
                 </View>
-
             </View>
         );
     }

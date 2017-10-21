@@ -33,44 +33,54 @@ export class App extends React.Component {
   }
 
   toLogin = () => {
-    this.props.navigation.navigate('SelectPlaylist');
+
+    this.props.navigation.navigate('Login'); // change back to UserHome
+
   }
 
   toRegister = () => {
     this.props.navigation.navigate('Register')
   }
 
-  toRegisterSpotify = () => {
-          fetch('https://turntableapp.herokuapp.com/auth/spotify', {
-              method: 'GET',
-              headers: {
-                  "Content-Type": "application/json"
-              }
-          })
-          .then((response) => {
-              console.log('response: ', response);
-              return response.url;
-          })
-          .then((url) => {
-              console.log('url: ', url);
-              fetch(url, {
-                method: 'GET',
-                headers: {
-                  "Content-Type": "application/json"
-                }
-              })
-              .then((response)=>(console.log(response)))
-              /* do something with responseJson and go back to the Login view but
-              * make sure to check for responseJson.success! */
-
-
-          }).then(() => this.props.navigation.navigate('Home'))
-          .catch((err) => {
-              /* do something if there was an error with fetching */
-              console.log('ERR, ', err);
-              alert('error', err);
-          });
-  }
+  // toRegisterSpotify = () => {
+  //         fetch('https://turntableapp.herokuapp.com/auth/spotify', {
+  //             method: 'GET',
+  //             headers: {
+  //                 "Content-Type": "application/json"
+  //             }
+  //         })
+  //         .then((response) => {
+  //             console.log('response: ', response);
+  //             return response.url;
+  //         })
+  //         .then((url) => {
+  //             console.log('url: ', url);
+  //             fetch(url, {
+  //               method: 'GET',
+  //               headers: {
+  //                 "Content-Type": "application/json"
+  //               }
+  //             })
+  //             .then((response)=>(console.log(response)))
+  //             /* do something with responseJson and go back to the Login view but
+  //             * make sure to check for responseJson.success! */
+  //
+  //             fetch(url, {
+  //                 method: 'GET',
+  //                 headers: {
+  //                     "Content-Type": "application/json"
+  //                 }
+  //             })
+  //             .then((response) => {
+  //                 console.log('spotify response: ', response);
+  //             })
+  //         }).then(() => this.props.navigation.navigate('Home'))
+  //         .catch((err) => {
+  //             /* do something if there was an error with fetching */
+  //             console.log('ERR, ', err);
+  //             alert('error', err);
+  //         });
+  // }
   render() {
     console.log(Dimensions.get('window').width);
       return (

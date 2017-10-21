@@ -50,9 +50,11 @@ export default class Register extends React.Component {
                 /* do something with responseJson and go back to the Login view but
                 * make sure to check for responseJson.success! */
                 if(responseJson.success){
+                    console.log('response: ', responseJson);
                     return AsyncStorage.setItem('user', JSON.stringify({
                         username: this.state.username,
-                        password: this.state.password
+                        password: this.state.password,
+                        
                     }));
                 }
 

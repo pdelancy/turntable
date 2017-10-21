@@ -21,6 +21,11 @@ import { Location, Permissions, MapView } from 'expo';
 import { StackNavigator } from 'react-navigation';
 
 const url = process.env.BACKEND_URI; // Backend link
+// look at the get playlist req will get back to us
+// given array of playlist obj
+// playlist obj -> {images, name, ownerOfPlaylist, tracks (songs), totalNumberOfTracks, URI for playlist (userid and playlist id)}
+
+// prop is going to be the json response
 
 const playLists = [
   {
@@ -62,6 +67,7 @@ export default class SelectPlaylist extends React.Component {
         idSubmit: false,
         spotifyID: '12145188065'
       };
+
       // fetch('https://hohoho-backend.herokuapp.com/messages', {
       //   method: 'GET',
       //   headers: {
@@ -74,6 +80,34 @@ export default class SelectPlaylist extends React.Component {
       //     dataSource: ds.cloneWithRows(res.messages)
       //   })
       // })
+    }
+
+    componentWillMount(){
+        fetch('https://turntableapp.herokuapp.com/userplaylists', {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: {
+                spotifyId: AsyncStorage.getItem('spotifyId')
+            }
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((response) => {
+            console.log('response: ', response);
+            const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+            this.setState({
+                dataSource: ds.cloneWithRows(response),
+                playlist: response
+            })
+        })
+        .catch((err) => {
+            /* do something if there was an error with fetching */
+            console.log('ERR, ', err);
+            alert('error', err);
+        });
     }
 
     static navigationOptions = {
