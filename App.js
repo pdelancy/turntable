@@ -5,6 +5,7 @@ import { StackNavigator } from 'react-navigation';
 import Login from './frontend/components/Login';
 import Register from './frontend/components/Register';
 import UserHome from './frontend/components/Home';
+import Room from './frontend/components/Room';
 
 import { Entypo } from '@expo/vector-icons';
 export class App extends React.Component {
@@ -67,7 +68,10 @@ export default StackNavigator({
   },
   Register: {
     screen: Register,
-  }
+},
+Room: {
+    screen: Room
+}
 }, {initialRouteName: 'Home'});
 
 const styles = StyleSheet.create({
