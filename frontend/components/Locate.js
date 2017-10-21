@@ -1,9 +1,6 @@
 import React from 'react';
 
 // Importing other screens
-import Register from './Register';
-import Room from './Room';
-import NewEvent from './NewEvent';
 
 import {
     StyleSheet,
@@ -17,17 +14,16 @@ import {
     AsyncStorage,
 } from 'react-native';
 
-
 import { Location, Permissions, MapView } from 'expo';
 
 import { StackNavigator } from 'react-navigation';
 
 const url = process.env.BACKEND_URI; // Backend link
 
-export default class UserHome extends React.Component {
+export default class Locate extends React.Component {
 
     static navigationOptions = {
-        title: 'Events in your area'
+        title: 'Pick your venue'
     };
 
     constructor(props){
@@ -38,6 +34,10 @@ export default class UserHome extends React.Component {
           longitude: -122.409327,
           latitudeDelta: .03125,
           longitudeDelta: .03125
+        },
+        marker: {
+          latitude: 37.771789,
+          longitude: -122.409327
         }
       }
     }
@@ -54,10 +54,10 @@ export default class UserHome extends React.Component {
       })
     }
 
-    newEvent = () => {
-      console.log("In new event");
-      this.props.navigation.navigate('NewEvent')
-    }
+    // newEvent = () => {
+    //   console.log("In new event");
+    //   this.props.navigation.navigate('NewEvent')
+    // }
 
     render(){
       console.log(this.state);
@@ -79,12 +79,18 @@ export default class UserHome extends React.Component {
             scrollEnabled={true}
             zoomEnabled={true}
             onRegionChangeComplete={(region)=>{
-              console.log(region, 73);
               this.setState({region: region})
               }}
             >
-              <TouchableOpacity style={style.newEvent} onPress={()=>this.newEvent()}>
-                <Text style={style.mapButton}>Create an Event</Text>
+              <MapView.Marker
+                coordinate={{
+                  latitude: this.state.region.latitude,
+                  longitude: this.state.region.longitude
+                }}
+                onDragEnd={(e)=>console.log(e.nativeEvent)}
+                />
+              <TouchableOpacity style={style.finalize} onPress={()=>this.newEvent()}>
+                <Text style={{fontSize: 30, color: 'white'}}>Finalize</Text>
               </TouchableOpacity>
           </MapView>
         );
@@ -92,45 +98,8 @@ export default class UserHome extends React.Component {
 }
 
 const style = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'black',
 
-    },
-    textField: {
-      alignSelf: 'stretch',
-      alignItems: 'center',
-      paddingTop: 10,
-      paddingBottom: 10,
-      marginTop: 10,
-      marginLeft: 5,
-      marginRight: 5,
-      borderRadius: 5,
-      backgroundColor: 'black',
-      borderRadius: 5,
-      borderWidth: 1,
-      borderColor: 'white',
-    },
-    button: {
-      alignSelf: 'stretch',
-      alignItems: 'center',
-      paddingTop: 10,
-      paddingBottom: 10,
-      marginTop: 10,
-      marginLeft: 5,
-      marginRight: 5,
-      backgroundColor: 'black',
-      borderRadius: 5,
-      borderWidth: 1,
-      borderColor: 'white'
-  },
-    redText: {
-      color: 'red'
-    },
-    newEvent: {
+    finalize: {
       backgroundColor: 'rgba(52,52,52,.8)',
       padding: 10,
       borderRadius: 5,

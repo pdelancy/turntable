@@ -1,10 +1,13 @@
 import React from 'react';
 import { Font, Location, Permissions, MapView } from 'expo';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Login from './frontend/components/Login';
 import Register from './frontend/components/Register';
 import UserHome from './frontend/components/Home';
+import NewEvent from './frontend/components/NewEvent';
+import SelectPlaylist from './frontend/components/SelectPlaylist';
+import Locate from './frontend/components/Locate';
 
 import { Entypo } from '@expo/vector-icons';
 export class App extends React.Component {
@@ -36,22 +39,30 @@ export class App extends React.Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log(Dimensions.get('window').width);
       return (
-      this.state.fontLoaded ?  (<View style={styles.container}>
-          <Text style={styles.title}>TURNT</Text>
-          <View>
-            <TouchableOpacity onPress={ () => {this.toLogin()}} style={styles.button}>
-              <Text style={styles.btnText}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={ () => {this.toRegister()} } style={styles.button}>
-              <Text style={styles.btnText}>Register</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={ () => {this.toRegister()} } style={styles.button}>
-              <Text style={styles.btnText}><Entypo name="spotify" size={45} style={{margin: 10}}/> Login with Spotify</Text>
-            </TouchableOpacity>
+      this.state.fontLoaded ?  (
+        <View style={{flex:1}}>
+          <Image source={require('./frontend/pictures/maxresdefault.jpg')}>
+          <View style={styles.container}>
+            <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}><Image source={require('./frontend/pictures/TURNT.png')} style={{height: 200, width: 200}}/></View>
+            <View style={{flex:1}}>
+              <TouchableOpacity onPress={ () => {this.toLogin()}} style={styles.button}>
+                <Text style={styles.btnText}>Login</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={ () => {this.toRegister()} } style={styles.button}>
+                <Text style={styles.btnText}>Register</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={ () => {this.toRegister()} } style={styles.button}>
+                <Text style={styles.btnText}><Entypo name="spotify" size={45} style={{margin: 10}}/> Login with Spotify</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View> ) : null
+          </Image>
+        </View>
+
+          )
+        : null
       )
   }
 }
@@ -67,16 +78,25 @@ export default StackNavigator({
   },
   Register: {
     screen: Register,
+  },
+  NewEvent: {
+    screen: NewEvent,
+  },
+  SelectPlaylist: {
+    screen: SelectPlaylist,
+  },
+  Locate: {
+    screen: Locate,
   }
 }, {initialRouteName: 'Home'});
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(52,52,52,.5)',
         alignItems: 'center',
-        justifyContent: 'space-around',
-        backgroundColor: 'black'
+        justifyContent: 'center',
+        width: Dimensions.get('window').width
     },
     title: {
       fontSize: 80,
